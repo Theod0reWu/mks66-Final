@@ -210,6 +210,34 @@ def generate_cone(cx, cy, cz, r, h, step ):
         i+= 1
     return temp
 
+def add_oblicone(polygons, px, py, pz, cx, cy, cz, r, step ):
+    if cy > py:
+        px, cx = cx, px
+        py, cy = cy, py
+        pz, cz = cz, pz
+    points = generate_oblicone(cx, cy, cz, r, step )
+    for i in range(1, step + 1):
+        p = i % step + 1
+        add_polygon(polygons, px, py, pz,
+                    points[i][0], points[i][1], points[i][2],
+                    points[p][0], points[p][1], points[p][2])
+        add_polygon(polygons, points[i][0], points[i][1], points[i][2],
+                    cx, cy, cz,
+                    points[p][0], points[p][1], points[p][2])
+
+def generate_oblicone(cx, cy, cz, r, step ):
+    #points = []
+    temp = []
+    temp.append([cx, cy, cz])
+    i = 1
+    while i <= step:
+        t = float(i)/step
+        x1 = r * math.cos(2*math.pi * t) + cx;
+        z1 = r * math.sin(2*math.pi * t) + cz;
+        temp.append([x1, cy, z1])
+        i+= 1
+    return temp
+
 def add_sphere(polygons, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)
 

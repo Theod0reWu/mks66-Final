@@ -144,9 +144,16 @@ def run(filename):
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
                 tmp = []
                 reflect = '.white'
-            elif c == 'cone':
+            elif c == 'cone': #makes a right cone
                 add_cone(tmp,
                             args[0], args[1], args[2], args[3], args[4], step_3d)
+                matrix_mult( stack[-1], tmp )
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+            elif c == 'oblicone': # oblique cone x,y,z, (tip) x,y,z, (base) , r 
+                add_oblicone(tmp,
+                            args[0], args[1], args[2], args[3], args[4], args[5], args[6],step_3d)
                 matrix_mult( stack[-1], tmp )
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
                 tmp = []

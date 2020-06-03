@@ -14,6 +14,7 @@ tokens = (
     "AMBIENT",
     "CYLINDER",
     "CONE",
+    "OBLICONE",
     "TORUS",
     "SPHERE",
     "BOX",
@@ -56,6 +57,7 @@ reserved = {
     "cylinder" : "CYLINDER",
     "torus" : "TORUS",
     "cone" : "CONE",
+    "oblicone" : "OBLICONE",
     "sphere" : "SPHERE",
     "box" : "BOX",
     "line" : "LINE",
@@ -215,6 +217,23 @@ def p_command_sphere(p):
     if len(p) == 8 and isinstance(p[7], str):
           cmd['cs'] = p[7]
     cmd['args'] = p[arg_start:arg_start+4]
+    commands.append(cmd)
+
+def p_command_oblicone(p):
+    """command : OBLICONE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER 
+               | OBLICONE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | OBLICONE SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | OBLICONE SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 9 and isinstance(p[8], str):
+        cmd['cs'] = p[8]
+    if len(p) == 10 and isinstance(p[9], str):
+          cmd['cs'] = p[9]
+    cmd['args'] = p[arg_start:arg_start+7]
     commands.append(cmd)
 
 def p_command_torus(p):
