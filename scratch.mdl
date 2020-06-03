@@ -1,4 +1,6 @@
 rotate z 10
 rotate x 10
+light red 0 250 1000 255 0 0
+light green 250 0 1000 0 255 0
 oblicone 150 50 0 250 250 0 100
 display

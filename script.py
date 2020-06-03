@@ -87,12 +87,12 @@ def run(filename):
     ambient = [50,
                50,
                50]
-    light = [[0.5,
+    light = [[[0.5,
               0.75,
               1],
              [255,
               255,
-              255]]
+              255]]]
 
     color = [0, 0, 0]
     symbols['.white'] = ['constants',
@@ -104,6 +104,7 @@ def run(filename):
     (name, num_frames) = first_pass(commands)
     frames = second_pass(commands, num_frames)
 
+    #print (symbols)
     for i in range(int(num_frames)):
         if num_frames > 1:
             for frame in frames[i]:
@@ -214,6 +215,10 @@ def run(filename):
                 matrix_mult( stack[-1], tmp )
                 stack[-1] = [ x[:] for x in tmp]
                 tmp = []
+            elif c == "light":
+                l = symbols[command["light"]][1]
+                light.append([l["location"], l["color"]])
+                print (light)
             elif c == 'push':
                 stack.append([x[:] for x in stack[-1]] )
             elif c == 'pop':
