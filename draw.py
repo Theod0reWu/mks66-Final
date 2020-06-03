@@ -186,6 +186,29 @@ def generate_cylinder(cx, cy, cz, r, h, step ):
     points.append(temp)
     return points
 
+def add_cone(polygons, cx, cy, cz, r, h, step ):
+    points = generate_cone(cx, cy, cz, r, h, step )
+    for i in range(1, step + 1):
+        p = i % step + 1
+        add_polygon(polygons, cx, cy, cz,
+                    points[i][0], points[i][1], points[i][2],
+                    points[p][0], points[p][1], points[p][2])
+        add_polygon(polygons, points[i][0], points[i][1], points[i][2],
+                    cx, cy - h, cz,
+                    points[p][0], points[p][1], points[p][2])
+
+def generate_cone(cx, cy, cz, r, h, step ):
+    #points = []
+    temp = []
+    temp.append([cx, cy, cz])
+    i = 1
+    while i <= step:
+        t = float(i)/step
+        x1 = r * math.cos(2*math.pi * t) + cx;
+        z1 = r * math.sin(2*math.pi * t) + cz;
+        temp.append([x1, cy - h, z1])
+        i+= 1
+    return temp
 
 def add_sphere(polygons, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)
