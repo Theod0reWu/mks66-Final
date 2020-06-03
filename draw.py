@@ -176,7 +176,7 @@ def generate_cylinder(cx, cy, cz, r, h, step ):
     i = 1
     points.append(temp)
     temp = []
-    temp.append([cx, cy, cz])
+    temp.append([cx, cy - h, cz])
     while i <= step:
         t = float(i)/step
         x1 = r * math.cos(2*math.pi * t) + cx;
