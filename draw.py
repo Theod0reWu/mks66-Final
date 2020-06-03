@@ -88,7 +88,7 @@ def draw_polygons( polygons, screen, zbuffer, view, ambient, light, symbols, ref
 
         #print normal
         if normal[2] > 0:
-            
+
             color = get_lighting(normal, view, ambient, light, symbols, reflect )
             scanline_convert(polygons, point, screen, zbuffer, color)
 
@@ -142,6 +142,50 @@ def add_box( polygons, x, y, z, width, height, depth ):
     #bottom
     add_polygon(polygons, x, y1, z, x1, y1, z1, x1, y1, z)
     add_polygon(polygons, x, y1, z, x, y1, z1, x1, y1, z1)
+
+def add_cylinder(polygons, cx, cy, cz, r, h, step):
+    points = generate_cylinder(cx, cy, cz, r, h, step)
+    for i in range(1, step + 1):
+        p = i % step + 1
+        add_polygon(polygons, points[0][0][0], points[0][0][1], points[0][0][2],
+                    points[0][p][0], points[0][p][1], points[0][p][2],
+                    points[0][i][0], points[0][i][1], points[0][i][2])
+        add_polygon(polygons, points[1][0][0], points[1][0][1], points[1][0][2],
+                    points[1][i][0], points[1][i][1], points[1][i][2],
+                    points[1][p][0], points[1][p][1], points[1][p][2])
+        add_polygon(polygons, points[0][i][0], points[0][i][1], points[0][i][2],
+                    points[1][p][0], points[1][p][1], points[1][p][2],
+                    points[1][i][0], points[1][i][1], points[1][i][2])
+        add_polygon(polygons, points[1][p][0], points[1][p][1], points[1][p][2],
+                    points[0][i][0], points[0][i][1], points[0][i][2],
+                    points[0][p][0], points[0][p][1], points[0][p][2])
+
+
+
+def generate_cylinder(cx, cy, cz, r, h, step ):
+    points = []
+    temp = []
+    temp.append([cx, cy, cz])
+    i = 1
+    while i <= step:
+        t = float(i)/step
+        x1 = r * math.cos(2*math.pi * t) + cx;
+        z1 = r * math.sin(2*math.pi * t) + cz;
+        temp.append([x1, cy, z1])
+        i+= 1
+    i = 1
+    points.append(temp)
+    temp = []
+    temp.append([cx, cy, cz])
+    while i <= step:
+        t = float(i)/step
+        x1 = r * math.cos(2*math.pi * t) + cx;
+        z1 = r * math.sin(2*math.pi * t) + cz;
+        temp.append([x1, cy - h, z1])
+        i+= 1
+    points.append(temp)
+    return points
+
 
 def add_sphere(polygons, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)
