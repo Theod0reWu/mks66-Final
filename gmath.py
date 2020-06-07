@@ -21,6 +21,8 @@ COLOR = 1
 SPECULAR_EXP = 4
 
 #lighting functions
+def shading():
+    return
 def get_lighting(normal, view, ambient, lights, symbols, reflect ):
     if len(lights) > 1:
         light = lights[1:]
@@ -36,9 +38,9 @@ def get_lighting(normal, view, ambient, lights, symbols, reflect ):
     s = calculate_specular(light, r, view, n)
 
     i = [0, 0, 0]
-    i[RED] = int(a[RED] + d[RED] + s[RED])
-    i[GREEN] = int(a[GREEN] + d[GREEN] + s[GREEN])
-    i[BLUE] = int(a[BLUE] + d[BLUE] + s[BLUE])
+    i[RED] = a[RED] + d[RED] + s[RED]
+    i[GREEN] = a[GREEN] + d[GREEN] + s[GREEN]
+    i[BLUE] = a[BLUE] + d[BLUE] + s[BLUE]
     limit_color(i)
 
     return i
@@ -90,8 +92,9 @@ def normalize(vector):
     magnitude = math.sqrt( vector[0] * vector[0] +
                            vector[1] * vector[1] +
                            vector[2] * vector[2])
-    for i in range(3):
-        vector[i] = vector[i] / magnitude
+    if magnitude != 0:
+        for i in range(3):
+            vector[i] = vector[i] / magnitude
 
 #Return the dot porduct of a . b
 def dot_product(a, b):

@@ -104,6 +104,7 @@ def run(filename):
     (name, num_frames) = first_pass(commands)
     frames = second_pass(commands, num_frames)
 
+    vertices = {}
     #print (symbols)
     for i in range(int(num_frames)):
         if num_frames > 1:
