@@ -1,7 +1,10 @@
 rotate z 20
 rotate x 10
-light red 0 250 1000 255 0 0
-light green  250 250 1000 0 255 0
+rotate y 10
+light red 100 250 1000 255 0 0
+light green  500 250 1000 0 255 0
 sphere 250 350 0 50
 oblicone 150 50 0 250 250 0 100
+torus 350 100 0 10 100
+box 300 300 300 50 50 50
 display
