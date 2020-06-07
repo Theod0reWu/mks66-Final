@@ -330,6 +330,11 @@ def p_command_frames(p):
     cmd = {'op' : p[1], 'args' : [p[2]]}
     commands.append(cmd)
 
+# def p_command_shading(p):
+#     """command : FRAMES NUMBER"""
+#     cmd = {'op' : p[1], 'args' : [p[2]]}
+#     commands.append(cmd)
+
 def p_command_basename(p):
     """command : BASENAME TEXT"""
     cmd = {'op' : p[1], 'args' : [p[2]]}

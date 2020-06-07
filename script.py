@@ -123,6 +123,8 @@ def run(filename):
         coords = []
         coords1 = []
 
+        shading_type = "flat" # GOURAUD PHONG
+
         for command in commands:
             # print(command)
             c = command['op']
@@ -136,28 +138,28 @@ def run(filename):
                         args[0], args[1], args[2],
                         args[3], args[4], args[5])
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'cylinder':
                 add_cylinder(tmp,
                             args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'cone': #makes a right cone
                 add_cone(tmp,
                             args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'oblicone': # oblique cone x,y,z, (tip) x,y,z, (base) , r 
                 add_oblicone(tmp,
                             args[0], args[1], args[2], args[3], args[4], args[5], args[6],step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'sphere':
@@ -166,7 +168,7 @@ def run(filename):
                 add_sphere(tmp,
                            args[0], args[1], args[2], args[3], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'torus':
@@ -175,7 +177,7 @@ def run(filename):
                 add_torus(tmp,
                           args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'line':
@@ -219,7 +221,9 @@ def run(filename):
             elif c == "light":
                 l = symbols[command["light"]][1]
                 light.append([l["location"], l["color"]])
-                print (light)
+                #print (light)
+            elif c == "shading":
+                shading_type = command["shade_type"]
             elif c == 'push':
                 stack.append([x[:] for x in stack[-1]] )
             elif c == 'pop':

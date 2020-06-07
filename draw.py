@@ -259,7 +259,7 @@ def phong_shading(polygons, i, screen, zbuffer, norms, view, ambient, light, sym
         z1+= dz1
         y+= 1
     return
-def draw_polygons( polygons, screen, zbuffer, view, ambient, light, symbols, reflect):
+def draw_polygons( polygons, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type):
     if len(polygons) < 2:
         print('Need at least 3 points to draw')
         return
@@ -297,36 +297,39 @@ def draw_polygons( polygons, screen, zbuffer, view, ambient, light, symbols, ref
 
         #print normal
         if normal[2] > 0:
-            #normal color
-            # color = get_lighting(normal, view, ambient, light, symbols, reflect )
-            # scanline_convert(polygons, point, screen, zbuffer, color)
-
-            #gouraud shading
-            # gouraud_shading(polygons, point, screen, zbuffer, vertices)
-
-            #phone shading
-            phong_shading(polygons, point, screen, zbuffer, norms, view, ambient, light, symbols, reflect)
-            # draw_line( int(polygons[point][0]),
-            #            int(polygons[point][1]),
-            #            polygons[point][2],
-            #            int(polygons[point+1][0]),
-            #            int(polygons[point+1][1]),
-            #            polygons[point+1][2],
-            #            screen, zbuffer, color)
-            # draw_line( int(polygons[point+2][0]),
-            #            int(polygons[point+2][1]),
-            #            polygons[point+2][2],
-            #            int(polygons[point+1][0]),
-            #            int(polygons[point+1][1]),
-            #            polygons[point+1][2],
-            #            screen, zbuffer, color)
-            # draw_line( int(polygons[point][0]),
-            #            int(polygons[point][1]),
-            #            polygons[point][2],
-            #            int(polygons[point+2][0]),
-            #            int(polygons[point+2][1]),
-            #            polygons[point+2][2],
-            #            screen, zbuffer, color)
+            if shading_type == "gouraud":
+                #gouraud shading
+                gouraud_shading(polygons, point, screen, zbuffer, vertices)
+            elif shading_type == "phong":
+                #phone shading
+                phong_shading(polygons, point, screen, zbuffer, norms, view, ambient, light, symbols, reflect)
+            elif shading_type == "wireframe":
+                #wire frame
+                draw_line( int(polygons[point][0]),
+                           int(polygons[point][1]),
+                           polygons[point][2],
+                           int(polygons[point+1][0]),
+                           int(polygons[point+1][1]),
+                           polygons[point+1][2],
+                           screen, zbuffer, color)
+                draw_line( int(polygons[point+2][0]),
+                           int(polygons[point+2][1]),
+                           polygons[point+2][2],
+                           int(polygons[point+1][0]),
+                           int(polygons[point+1][1]),
+                           polygons[point+1][2],
+                           screen, zbuffer, color)
+                draw_line( int(polygons[point][0]),
+                           int(polygons[point][1]),
+                           polygons[point][2],
+                           int(polygons[point+2][0]),
+                           int(polygons[point+2][1]),
+                           polygons[point+2][2],
+                           screen, zbuffer, color)
+            else:
+                #normal color
+                color = get_lighting(normal, view, ambient, light, symbols, reflect )
+                scanline_convert(polygons, point, screen, zbuffer, color)
         point+= 3
 
 
