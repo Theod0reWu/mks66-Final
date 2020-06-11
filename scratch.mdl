@@ -1,11 +1,128 @@
+//shading phong
+//rotate z 20
+//rotate x 10
+//rotate y 10
+//light red 100 250 1000 255 0 0
+//light green  500 250 1000 0 255 0
+//sphere 250 350 0 50
+//oblicone 150 50 0 250 250 0 100
+//torus 350 100 0 10 100
+//box 300 300 300 50 50 50
+
+frames 32
+basename img
 shading phong
-rotate z 20
+light red 50 125 100 255 0 0
+//move 250 250 0
+//rotate y 90
+
+move 0 150 0
+rotate y 30
 rotate x 10
-rotate y 10
-light red 100 250 1000 255 0 0
-light green  500 250 1000 0 255 0
-sphere 250 350 0 50
-oblicone 150 50 0 250 250 0 100
-torus 350 100 0 10 100
-box 300 300 300 50 50 50
+
+//rail
+box 0 10 0 900 10 10
+box 0 10 -135 900 10 10
+
+//wheels
+push
+move 250 35 0
+rotate x 90
+cylinder 0 0 0 25 10
+move 0 -10 0
+cylinder 0 0 0 35 10
+pop
+push
+move 320 35 0
+rotate x 90
+cylinder 0 0 0 25 10
+move 0 -10 0
+cylinder 0 0 0 35 10
+pop
+push
+move 390 35 0
+rotate x 90
+cylinder 0 0 0 25 10
+move 0 -10 0
+cylinder 0 0 0 35 10
+pop
+
+push
+move 250 35 -135
+rotate x 90
+cylinder 0 0 0 25 10
+move 0 10 0
+cylinder 0 0 0 35 10
+pop
+push
+move 320 35 -135
+rotate x 90
+cylinder 0 0 0 25 10
+move 0 10 0
+cylinder 0 0 0 35 10
+pop
+push
+move 390 35 -135
+rotate x 90
+cylinder 0 0 0 25 10
+move 0 10 0
+cylinder 0 0 0 35 10
+pop
+
+//body
+box 210 75 -20 225 50 105
+box 200 60 -20 225 35 105
+push
+move 180 42.5 -55
+rotate z 90
+cylinder 0 0 0 12 20
+cone 0 10 0 12 10
+move 0 0 -30
+cylinder 0 0 0 12 20
+cone 0 10 0 12 10
+pop
+push
+move 200 95 -70
+rotate z 90
+cylinder 0 0 0 35 120
+cone 0 20 0 32 20
+pop
+box 250 125 -25 185 70 95
+box 320 160 -25 115 35 95
+push
+move 320 145 -72.5
+rotate z 90
+cylinder 0 0 0 46.5 115
+pop
+push
+move 230 180 -72.5
+cylinder 0 0 0 12 60
+torus 0 -15 0 5 10
+torus 0 0 0 8 10
+pop
+
+//coupling rod
+//move 258.839 43.839 0 round0
+//move 250 47.5 0 round1
+move -3.661 8.839 0 one
+move -8.839 3.661 0 two
+move -8.839 -3.661 0 tre
+move -3.661 -8.839 0 fou
+move 3.661 -8.839 0 fiv
+move 8.839 -3.661 0 six
+move 8.839 3.661 0 sev
+move 3.661 8.839 0 eig
+box 262.5 37.5 5 140 8 5
+
+vary one 0 3 0 1
+vary two 4 7 0 1
+vary tre 8 11 0 1
+vary fou 12 15 0 1
+vary fiv 16 19 0 1
+vary six 20 23 0 1
+vary sev 24 27 0 1
+vary eig 28 31 0 1
+
+
+
 display
