@@ -11,8 +11,8 @@
 
 frames 32
 basename img
-shading phong
-light red 50 125 100 255 0 0
+shading flat
+//light red 50 125 100 255 0 0
 //move 250 250 0
 //rotate y 90
 

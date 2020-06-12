@@ -24,6 +24,7 @@ SPECULAR_EXP = 4
 def shading():
     return
 def get_lighting(normal, view, ambient, lights, symbols, reflect ):
+    light = lights
     if len(lights) > 1:
         light = lights[1:]
     n = normal[:]

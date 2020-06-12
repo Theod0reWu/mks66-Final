@@ -57,7 +57,7 @@ def first_pass( commands ):
   dictionary corresponding to the given knob with the
   appropirate value.
   ===================="""
-def second_pass( commands, num_frames ):
+def second_pass( commands, num_frames, light, symbols ):
     frames = [ {} for i in range(num_frames) ]
     for x in commands:
         if x['op'] == 'vary':
@@ -66,6 +66,10 @@ def second_pass( commands, num_frames ):
             for i in range (int(x['args'][0]), int(x['args'][1])):
                 frames[i][x['knob']] = val
                 val += change
+        elif x["op"] == "light":
+            l = symbols[x["light"]][1]
+            light.append([l["location"], l["color"]])
+            #print (light)
     return frames
 
 
@@ -102,11 +106,12 @@ def run(filename):
     reflect = '.white'
 
     (name, num_frames) = first_pass(commands)
-    frames = second_pass(commands, num_frames)
+    frames = second_pass(commands, num_frames, light, symbols)
 
     vertices = {}
     #print (symbols)
     for i in range(int(num_frames)):
+        #print(light)
         if num_frames > 1:
             for frame in frames[i]:
                 symbols[frame][1] = frames[i][frame]
@@ -138,28 +143,28 @@ def run(filename):
                         args[0], args[1], args[2],
                         args[3], args[4], args[5])
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light[:], symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'cylinder':
                 add_cylinder(tmp,
                             args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light[:], symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'cone': #makes a right cone
                 add_cone(tmp,
                             args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light[:], symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'oblicone': # oblique cone x,y,z, (tip) x,y,z, (base) , r 
                 add_oblicone(tmp,
                             args[0], args[1], args[2], args[3], args[4], args[5], args[6],step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light[:], symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'sphere':
@@ -168,7 +173,7 @@ def run(filename):
                 add_sphere(tmp,
                            args[0], args[1], args[2], args[3], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light[:], symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'torus':
@@ -177,7 +182,7 @@ def run(filename):
                 add_torus(tmp,
                           args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
-                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading_type)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light[:], symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
             elif c == 'line':
@@ -218,10 +223,6 @@ def run(filename):
                 matrix_mult( stack[-1], tmp )
                 stack[-1] = [ x[:] for x in tmp]
                 tmp = []
-            elif c == "light":
-                l = symbols[command["light"]][1]
-                light.append([l["location"], l["color"]])
-                #print (light)
             elif c == "shading":
                 shading_type = command["shade_type"]
             elif c == 'push':
@@ -232,6 +233,6 @@ def run(filename):
                 display(screen)
             elif c == 'save' and num_frames == 1:
                 save_extension(screen, args[0])
-        if (num_frames > 1): save_extension(screen, "anim/" + name[0] + "%03d" % i)
+        if (num_frames > 1): save_extension(screen, "anim/" + name[0] + "%03d" % i + ".ppm")
     if (num_frames > 1): make_animation(name[0])
             # end operation loop
