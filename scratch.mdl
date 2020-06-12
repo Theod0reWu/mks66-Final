@@ -96,7 +96,7 @@ push
 move 200 95 -70
 rotate z 90
 cylinder black 0 0 0 35 120
-cone yellow 0 25 0 32 25
+cone yellow 0 20 0 32 20
 pop
 box lightblue 250 125 -25 70 70 95
 box lightblue 320 160 -25 115 105 95
@@ -113,26 +113,28 @@ torus black 0 0 0 8 10
 pop
 
 //coupling rod
-//move -3.661 8.839 0 one
-//move -8.839 3.661 0 two
-//move -8.839 -3.661 0 tre
-//move -3.661 -8.839 0 fou
-//move 3.661 -8.839 0 fiv
-//move 8.839 -3.661 0 six
-//move 8.839 3.661 0 sev
-//move 3.661 8.839 0 eig
+move -3.661 8.839 0 one
+move -8.839 3.661 0 two
+move -8.839 -3.661 0 tre
+move -3.661 -8.839 0 fou
+move 3.661 -8.839 0 fiv
+move 8.839 -3.661 0 six
+move 8.839 3.661 0 sev
+move 3.661 8.839 0 eig
 box brown 262.5 37.5 5 140 8 5
 
 pop
 
 shading flat
 move 150 0 0 zoom
-cone 950 200 -500 150 150
-cone 800 200 -500 150 150
-cone 650 200 -500 150 150
-cone 500 200 -500 150 150
-cone 350 200 -500 150 150
-cone 200 200 -500 150 150
+cone black 1100 200 -500 150 150
+cone black 950 200 -500 150 150
+cone black 800 200 -500 150 150
+cone black 650 200 -500 150 150
+cone black 500 200 -500 150 150
+cone black 350 200 -500 150 150
+cone black 200 200 -500 150 150
+cone black 50 200 -500 150 150
 
 vary one 0 7 0 1
 vary two 8 15 0 1
