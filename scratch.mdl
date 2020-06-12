@@ -9,40 +9,51 @@
 //torus 350 100 0 10 100
 //box 300 300 300 50 50 50
 
-frames 32
+frames 64
 basename img
-shading flat
+shading gouraud
 //light red 50 125 100 255 0 0
 //move 250 250 0
 //rotate y 90
 
 move 0 150 0
-rotate y 30
-rotate x 10
+rotate y 25
+rotate x 7
+
+constants blue 0 0 1 0 0 1 1 1 1
+constants yellow 1 1 1 1 1 1 0 0 1
+constants black 0 0 1 0 0 1 0 0 1
+constants brown 0.37 0.37 .5 0.15 0.15 .5 0.02 0.02 0.5
+constants lightblue 0 0 0 .27 .27 .27 .9 .9 .9
+constants red 0.3 0.6 0.8 0.3 0.2 0.6 0.3 0.2 0.8
 
 //rail
-box 0 10 0 900 10 10
-box 0 10 -135 900 10 10
+box red 0 10 0 900 10 10
+box red 0 10 -135 900 10 10
+
+push
+move -900 0 0 speed
+move 400 0 0
 
 //wheels
 push
 move 250 35 0
 rotate x 90
-cylinder 0 0 0 25 10
+cylinder black 0 0 0 25 10
 move 0 -10 0
 cylinder 0 0 0 35 10
 pop
 push
 move 320 35 0
 rotate x 90
-cylinder 0 0 0 25 10
+cylinder black 0 0 0 25 10
 move 0 -10 0
 cylinder 0 0 0 35 10
 pop
 push
 move 390 35 0
 rotate x 90
-cylinder 0 0 0 25 10
+cylinder black 0 0 0 25 10
 move 0 -10 0
 cylinder 0 0 0 35 10
 pop
@@ -50,79 +61,88 @@ pop
 push
 move 250 35 -135
 rotate x 90
-cylinder 0 0 0 25 10
+cylinder black 0 0 0 25 10
 move 0 10 0
 cylinder 0 0 0 35 10
 pop
 push
 move 320 35 -135
 rotate x 90
-cylinder 0 0 0 25 10
+cylinder black 0 0 0 25 10
 move 0 10 0
 cylinder 0 0 0 35 10
 pop
 push
 move 390 35 -135
 rotate x 90
-cylinder 0 0 0 25 10
+cylinder black 0 0 0 25 10
 move 0 10 0
 cylinder 0 0 0 35 10
 pop
 
 //body
-box 210 75 -20 225 50 105
-box 200 60 -20 225 35 105
+box blue 210 75 -20 225 50 105
+box blue 200 60 -20 245 35 105
 push
 move 180 42.5 -55
 rotate z 90
-cylinder 0 0 0 12 20
-cone 0 10 0 12 10
+cylinder black 0 0 0 12 20
+cone yellow 0 10 0 12 10
 move 0 0 -30
-cylinder 0 0 0 12 20
-cone 0 10 0 12 10
+cylinder black 0 0 0 12 20
+cone yellow 0 10 0 12 10
 pop
 push
 move 200 95 -70
 rotate z 90
-cylinder 0 0 0 35 120
-cone 0 20 0 32 20
+cylinder black 0 0 0 35 120
+cone yellow 0 25 0 32 25
 pop
-box 250 125 -25 185 70 95
-box 320 160 -25 115 35 95
+box lightblue 250 125 -25 70 70 95
+box lightblue 320 160 -25 115 105 95
 push
 move 320 145 -72.5
 rotate z 90
-cylinder 0 0 0 46.5 115
+cylinder black 0 -2 0 46.5 112
 pop
 push
 move 230 180 -72.5
-cylinder 0 0 0 12 60
-torus 0 -15 0 5 10
-torus 0 0 0 8 10
+cylinder black 0 0 0 12 60
+torus black 0 -15 0 5 10
+torus black 0 0 0 8 10
 pop
 
 //coupling rod
-//move 258.839 43.839 0 round0
-//move 250 47.5 0 round1
-move -3.661 8.839 0 one
-move -8.839 3.661 0 two
-move -8.839 -3.661 0 tre
-move -3.661 -8.839 0 fou
-move 3.661 -8.839 0 fiv
-move 8.839 -3.661 0 six
-move 8.839 3.661 0 sev
-move 3.661 8.839 0 eig
-box 262.5 37.5 5 140 8 5
+//move -3.661 8.839 0 one
+//move -8.839 3.661 0 two
+//move -8.839 -3.661 0 tre
+//move -3.661 -8.839 0 fou
+//move 3.661 -8.839 0 fiv
+//move 8.839 -3.661 0 six
+//move 8.839 3.661 0 sev
+//move 3.661 8.839 0 eig
+box brown 262.5 37.5 5 140 8 5
 
-vary one 0 3 0 1
-vary two 4 7 0 1
-vary tre 8 11 0 1
-vary fou 12 15 0 1
-vary fiv 16 19 0 1
-vary six 20 23 0 1
-vary sev 24 27 0 1
-vary eig 28 31 0 1
+pop
 
+shading flat
+move 150 0 0 zoom
+cone 950 200 -500 150 150
+cone 800 200 -500 150 150
+cone 650 200 -500 150 150
+cone 500 200 -500 150 150
+cone 350 200 -500 150 150
+cone 200 200 -500 150 150
 
+vary one 0 7 0 1
+vary two 8 15 0 1
+vary tre 16 23 0 1
+vary fou 24 31 0 1
+vary fiv 32 39 0 1
+vary six 40 47 0 1
+vary sev 48 55 0 1
+vary eig 56 63 0 1
+vary speed 0 63 0 1
+vary zoom 0 63 0 1
 
 display

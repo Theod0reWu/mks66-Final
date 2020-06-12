@@ -147,6 +147,8 @@ def run(filename):
                 tmp = []
                 reflect = '.white'
             elif c == 'cylinder':
+                if command['constants']:
+                    reflect = command['constants']
                 add_cylinder(tmp,
                             args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
@@ -154,13 +156,17 @@ def run(filename):
                 tmp = []
                 reflect = '.white'
             elif c == 'cone': #makes a right cone
+                if command['constants']:
+                    reflect = command['constants']
                 add_cone(tmp,
                             args[0], args[1], args[2], args[3], args[4], step_3d)
                 matrix_mult( stack[-1], tmp )
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light[:], symbols, reflect, shading_type)
                 tmp = []
                 reflect = '.white'
-            elif c == 'oblicone': # oblique cone x,y,z, (tip) x,y,z, (base) , r 
+            elif c == 'oblicone': # oblique cone x,y,z, (tip) x,y,z, (base) , r
+                if command['constants']:
+                    reflect = command['constants']
                 add_oblicone(tmp,
                             args[0], args[1], args[2], args[3], args[4], args[5], args[6],step_3d)
                 matrix_mult( stack[-1], tmp )
@@ -233,6 +239,6 @@ def run(filename):
                 display(screen)
             elif c == 'save' and num_frames == 1:
                 save_extension(screen, args[0])
-        if (num_frames > 1): save_extension(screen, "anim/" + name[0] + "%03d" % i + ".ppm")
+        if (num_frames > 1): save_extension(screen, "anim/" + name[0] + "%03d" % i)
     if (num_frames > 1): make_animation(name[0])
             # end operation loop
