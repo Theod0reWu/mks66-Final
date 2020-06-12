@@ -408,10 +408,10 @@ def add_cone(polygons, cx, cy, cz, r, h, step ):
     for i in range(1, step + 1):
         p = i % step + 1
         add_polygon(polygons, cx, cy, cz,
+                    points[p][0], points[p][1], points[p][2],
+                    points[i][0], points[i][1], points[i][2])
+        add_polygon( polygons, cx, cy - h, cz,
                     points[i][0], points[i][1], points[i][2],
-                    points[p][0], points[p][1], points[p][2])
-        add_polygon(polygons, points[i][0], points[i][1], points[i][2],
-                    cx, cy - h, cz,
                     points[p][0], points[p][1], points[p][2])
 
 def generate_cone(cx, cy, cz, r, h, step ):
