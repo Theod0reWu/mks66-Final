@@ -111,6 +111,7 @@ def run(filename):
     vertices = {}
     #print (symbols)
     for i in range(int(num_frames)):
+        print("generating frame:", i)
         #print(light)
         if num_frames > 1:
             for frame in frames[i]:
@@ -233,6 +234,6 @@ def run(filename):
                 display(screen)
             elif c == 'save' and num_frames == 1:
                 save_extension(screen, args[0])
-        if (num_frames > 1): save_extension(screen, "anim/" + name[0] + "%03d" % i + ".ppm")
+        if (num_frames > 1): save_ppm(screen, "anim/" + name[0] + "%03d" % i)
     if (num_frames > 1): make_animation(name[0])
             # end operation loop
