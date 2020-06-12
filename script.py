@@ -240,10 +240,6 @@ def run(filename):
                 display(screen)
             elif c == 'save' and num_frames == 1:
                 save_extension(screen, args[0])
-<<<<<<< HEAD
-        if (num_frames > 1): save_extension(screen, "anim/" + name[0] + "%03d" % i)
-=======
         if (num_frames > 1): save_ppm(screen, "anim/" + name[0] + "%03d" % i)
->>>>>>> b06e21401a9b85137ea66f2e2a1a8411537893e1
     if (num_frames > 1): make_animation(name[0])
             # end operation loop
